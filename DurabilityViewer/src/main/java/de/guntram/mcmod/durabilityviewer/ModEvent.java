@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
 import static de.guntram.mcmod.durabilityviewer.Events.EXAMPLE_MAPPING;
 
-@EventBusSubscriber(modid = DurabilityViewer.MODID )
+@EventBusSubscriber(modid = DurabilityViewer.MODID ,value = Dist.CLIENT)
 public class ModEvent {
     @SubscribeEvent
     public static void registerBindings(RegisterKeyMappingsEvent event) {

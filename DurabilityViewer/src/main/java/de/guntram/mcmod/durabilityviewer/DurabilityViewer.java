@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -18,7 +19,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-@Mod(DurabilityViewer.MODID)
+@Mod(value = DurabilityViewer.MODID,dist = Dist.CLIENT)
 public class DurabilityViewer {
     public static final String MODID = "durabilityviewer";
     public static final String MOD_NAME = "Durability Viewer";
@@ -33,9 +34,10 @@ public class DurabilityViewer {
     public DurabilityViewer(IEventBus modEventBus, ModContainer modContainer) {
 
 
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            GuiConfig.getConfig();
-        }
+        modContainer.registerExtensionPoint(
+                IConfigScreenFactory.class,
+                (client, parent) -> AutoConfig.getConfigScreen(ClothModConfig.class, parent).get()
+        );
         AutoConfig.register(ClothModConfig.class, Toml4jConfigSerializer::new);
         getConfig = AutoConfig.getConfigHolder(ClothModConfig.class).getConfig();
 
