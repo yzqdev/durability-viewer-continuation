@@ -10,8 +10,12 @@ import de.guntram.mcmod.durabilityviewer.cloth.WarnMode;
  * @modified By:
  */
 public class LangUtil {
+
     public static String getConf(String name){
         return DurabilityViewer.MODID+".configuration."+name;
+    }
+    public static String getText(String name){
+        return DurabilityViewer.MODID+".text"+name;
     }
 
     public static String showInventoryItemDurability = getConf("showInventoryItemDurability");
@@ -34,6 +38,8 @@ public class LangUtil {
     public static String warningModeSound= getConf("warningMode.sound");
     public static String warningModeVisual= getConf("warningMode.visual");
     public static String warningModeNone= getConf("warningMode.none");
+public static String  keyShowHide= getText("key.showhide");
+    public static String keyCategory=LangUtil.getText("key.categories");
 
 
 }

@@ -15,16 +15,9 @@ import org.apache.logging.log4j.Logger;
 public class DurabilityViewer {
     public static final String MODID = "durabilityviewer";
 //    public static final String MOD_NAME = "Durability Viewer";
-
-
-
-
     public static final Logger LOGGER = LogManager.getLogger(DurabilityViewer.MODID);
 
-
     public DurabilityViewer(IEventBus modEventBus, ModContainer modContainer) {
-
-
 
         modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
 

@@ -18,5 +18,7 @@
   "durabilityviewer.configuration.warningMode.both": "视觉和声音效果",
   "durabilityviewer.configuration.warningMode.none": "无效果",
   "durabilityviewer.configuration.warningMode.sound": "仅声音效果",
-  "durabilityviewer.configuration.warningMode.visual": "仅视觉效果"
+  "durabilityviewer.configuration.warningMode.visual": "仅视觉效果",
+  "durabilityviewer.textkey.categories": "耐久指示器",
+  "durabilityviewer.textkey.showhide": "显示/隐藏 耐久显示"
 }

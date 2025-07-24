@@ -3,6 +3,7 @@ package de.guntram.mcmod.durabilityviewer;
 import com.mojang.blaze3d.platform.InputConstants;
 import de.guntram.mcmod.durabilityviewer.client.gui.GuiItemDurability;
 
+import de.guntram.mcmod.durabilityviewer.datagen.LangUtil;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,8 +15,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
 @EventBusSubscriber(modid = DurabilityViewer.MODID,value = Dist.CLIENT)
 public class Events {
-    public static final Lazy<KeyMapping> EXAMPLE_MAPPING = Lazy.of(() -> {  final String category = "key.categories.durabilityviewer";
-        return  new KeyMapping("key.durabilityviewer.showhide", InputConstants.Type.KEYSYM, GLFW_KEY_H, category);
+    public static final Lazy<KeyMapping> EXAMPLE_MAPPING = Lazy.of(() -> {  final String category = LangUtil.keyCategory;
+        return  new KeyMapping(LangUtil.keyShowHide, InputConstants.Type.KEYSYM, GLFW_KEY_H, category);
     });
     @SubscribeEvent
     public static  void onClientTick(ClientTickEvent.Post event) {

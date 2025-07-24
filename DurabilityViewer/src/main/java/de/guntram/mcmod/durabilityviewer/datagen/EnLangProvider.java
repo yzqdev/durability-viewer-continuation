@@ -38,5 +38,7 @@ public class EnLangProvider extends LanguageProvider {
         add(LangUtil.warningModeSound, "Sound Only");
         add(LangUtil.warningModeVisual, "Visual Only");
         add(LangUtil.warningModeNone, "No Warnings");
+        add(LangUtil.keyCategory, "durability viewer");
+        add(LangUtil.keyShowHide, "show/hide durability");
     }
 }

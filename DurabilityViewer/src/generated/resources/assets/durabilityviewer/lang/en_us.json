@@ -18,5 +18,7 @@
   "durabilityviewer.configuration.warningMode.both": "Both Visual and Sound",
   "durabilityviewer.configuration.warningMode.none": "No Warnings",
   "durabilityviewer.configuration.warningMode.sound": "Sound Only",
-  "durabilityviewer.configuration.warningMode.visual": "Visual Only"
+  "durabilityviewer.configuration.warningMode.visual": "Visual Only",
+  "durabilityviewer.textkey.categories": "durability viewer",
+  "durabilityviewer.textkey.showhide": "show/hide durability"
 }

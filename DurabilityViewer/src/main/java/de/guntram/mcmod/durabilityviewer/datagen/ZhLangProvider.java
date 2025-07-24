@@ -41,5 +41,7 @@ public class ZhLangProvider extends LanguageProvider {
         add(LangUtil.warningModeSound, "仅声音效果");
         add(LangUtil.warningModeVisual, "仅视觉效果");
         add(LangUtil.warningModeNone, "无效果");
+        add(LangUtil.keyCategory, "耐久指示器");
+        add(LangUtil.keyShowHide, "显示/隐藏 耐久显示");
     }
 }
