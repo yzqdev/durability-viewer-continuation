@@ -1,0 +1,22 @@
+{
+  "durabilityviewer.configuration.armorAroundHotbar": "在快捷栏周围显示护甲",
+  "durabilityviewer.configuration.effectDuration": "显示效果持续时间",
+  "durabilityviewer.configuration.hideDamageOverPercent": "当耐久高于此百分比时隐藏HUD",
+  "durabilityviewer.configuration.hudPosition": "HUD位置",
+  "durabilityviewer.configuration.hudPosition.bottom_left": "左下角",
+  "durabilityviewer.configuration.hudPosition.bottom_right": "右下角",
+  "durabilityviewer.configuration.hudPosition.top_left": "左上角",
+  "durabilityviewer.configuration.hudPosition.top_right": "右上角",
+  "durabilityviewer.configuration.percentToShowDamageRatherThanDurability": "低于此百分比时显示耐久损伤而非剩余的耐久",
+  "durabilityviewer.configuration.showAllTrinkets": "显示饰品耐久",
+  "durabilityviewer.configuration.showFreeInventorySlots": "显示空闲背包槽位",
+  "durabilityviewer.configuration.showInventoryItemDurability": "显示背包内物品的耐久",
+  "durabilityviewer.configuration.showPercentRatherThanDurability": "显示百分比而非耐久值",
+  "durabilityviewer.configuration.soundBelowDurability": "耐久低于此值时播放警告音",
+  "durabilityviewer.configuration.soundBelowPercent": "耐久低于此百分比时播放警告音",
+  "durabilityviewer.configuration.warningMode": "警告模式",
+  "durabilityviewer.configuration.warningMode.both": "视觉和声音效果",
+  "durabilityviewer.configuration.warningMode.none": "无效果",
+  "durabilityviewer.configuration.warningMode.sound": "仅声音效果",
+  "durabilityviewer.configuration.warningMode.visual": "仅视觉效果"
+}

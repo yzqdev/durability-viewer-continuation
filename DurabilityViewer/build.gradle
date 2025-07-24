@@ -109,10 +109,15 @@ configurations {
   runtimeClasspath.extendsFrom localRuntime
 }
 repositories {
+  maven {
+    name = "Illusive Soulworks maven"
+    url = "https://maven.theillusivec4.top/"
+  }
   maven { url "https://maven.shedaniel.me/" }
 }
 dependencies {
-  api("me.shedaniel.cloth:cloth-config-neoforge:15.0.140")
+  runtimeOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}")
+  compileOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}:api")
 
 }
 

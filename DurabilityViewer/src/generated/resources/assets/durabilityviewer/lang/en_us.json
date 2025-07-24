@@ -1,0 +1,22 @@
+{
+  "durabilityviewer.configuration.armorAroundHotbar": "Display armor around hotbar",
+  "durabilityviewer.configuration.effectDuration": "Show effect duration",
+  "durabilityviewer.configuration.hideDamageOverPercent": "Hide HUD when durability is above this percentage",
+  "durabilityviewer.configuration.hudPosition": "HUD position",
+  "durabilityviewer.configuration.hudPosition.bottom_left": "Bottom Left",
+  "durabilityviewer.configuration.hudPosition.bottom_right": "Bottom Right",
+  "durabilityviewer.configuration.hudPosition.top_left": "Top Left",
+  "durabilityviewer.configuration.hudPosition.top_right": "Top Right",
+  "durabilityviewer.configuration.percentToShowDamageRatherThanDurability": "Show durability damage instead of remaining durability",
+  "durabilityviewer.configuration.showAllTrinkets": "Show trinkets durability",
+  "durabilityviewer.configuration.showFreeInventorySlots": "Show empty inventory slots",
+  "durabilityviewer.configuration.showInventoryItemDurability": "Show inventory item durability",
+  "durabilityviewer.configuration.showPercentRatherThanDurability": "Show percentage instead of durability value",
+  "durabilityviewer.configuration.soundBelowDurability": "Play warning sound when durability falls below this value",
+  "durabilityviewer.configuration.soundBelowPercent": "Play warning sound when durability falls below this percentage",
+  "durabilityviewer.configuration.warningMode": "Warning mode",
+  "durabilityviewer.configuration.warningMode.both": "Both Visual and Sound",
+  "durabilityviewer.configuration.warningMode.none": "No Warnings",
+  "durabilityviewer.configuration.warningMode.sound": "Sound Only",
+  "durabilityviewer.configuration.warningMode.visual": "Visual Only"
+}

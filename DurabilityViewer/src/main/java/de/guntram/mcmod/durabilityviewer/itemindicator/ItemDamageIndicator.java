@@ -1,7 +1,8 @@
 package de.guntram.mcmod.durabilityviewer.itemindicator;
 
  
-import de.guntram.mcmod.durabilityviewer.ClothModConfig;
+
+import de.guntram.mcmod.durabilityviewer.Config;
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
 import net.minecraft.world.item.ItemStack;
 
@@ -31,12 +32,12 @@ public class ItemDamageIndicator implements ItemIndicator {
         int cur = max - dam;
 
         int shown;
-        if (cur > max * DurabilityViewer.getConfig.PercentToShowDamage  / 100) {
+        if (cur > max * Config.percentToShowDamageRatherThanDurability / 100) {
             shown = -dam;
         } else {
             shown = cur;
         }
-        if (DurabilityViewer.getConfig.Percentages ) {
+        if ( Config.showPercentRatherThanDurability) {
             return String.format("%.1f%%", shown * 100.0 / max);
         }
         return String.valueOf(shown);
@@ -61,7 +62,7 @@ public class ItemDamageIndicator implements ItemIndicator {
 
     @Override
     public boolean isEmpty() {
-        return stack.isEmpty() || (stack.getMaxDamage() - stack.getDamageValue() > stack.getMaxDamage() * DurabilityViewer.getConfig.HideDamageOverPercent / 100);
+        return stack.isEmpty() || (stack.getMaxDamage() - stack.getDamageValue() > stack.getMaxDamage() *  Config.hideDamageOverPercent / 100);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package de.guntram.mcmod.durabilityviewer.itemindicator;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import de.guntram.mcmod.durabilityviewer.Config;
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,7 +15,7 @@ import net.neoforged.neoforge.client.IItemDecorator;
 public class ShowAllDurability implements IItemDecorator {
 
     public boolean render(GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xPosition, int yPosition) {
-        if (!itemStack.isEmpty() && itemStack.isDamaged()&& DurabilityViewer.getConfig.ShowInventoryItemDuration) {
+        if (!itemStack.isEmpty() && itemStack.isDamaged()&& Config.showInventoryItemDurability) {
             PoseStack poseStack = guiGraphics.pose();
             var access = Minecraft.getInstance().level.registryAccess();
             var unbreakEnchant = access.registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.UNBREAKING);

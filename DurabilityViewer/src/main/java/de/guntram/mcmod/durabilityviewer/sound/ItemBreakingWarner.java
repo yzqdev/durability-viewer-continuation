@@ -5,7 +5,8 @@
  */
 package de.guntram.mcmod.durabilityviewer.sound;
 
-import de.guntram.mcmod.durabilityviewer.ClothModConfig;
+
+import de.guntram.mcmod.durabilityviewer.Config;
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -38,8 +39,8 @@ public class ItemBreakingWarner {
             return false;
         int newDurability = stack.getMaxDamage() - stack.getDamageValue();
         if (newDurability < lastDurability
-                && newDurability < DurabilityViewer.getConfig.SoundBelowDurability
-                && newDurability * 100 / DurabilityViewer.getConfig.SoundBelowPercent  < stack.getMaxDamage()) {
+                && newDurability < Config.soundBelowDurability
+                && newDurability * 100 /  Config.soundBelowPercent  < stack.getMaxDamage()) {
             lastDurability = newDurability;
             return true;
         }
