@@ -6,8 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 
 import de.guntram.mcmod.durabilityviewer.Config;
-import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
-import de.guntram.mcmod.durabilityviewer.cloth.Corner;
+import de.guntram.mcmod.durabilityviewer.cloth.HudPosition;
 import de.guntram.mcmod.durabilityviewer.cloth.WarnMode;
 import de.guntram.mcmod.durabilityviewer.itemindicator.InventorySlotsIndicator;
 import de.guntram.mcmod.durabilityviewer.itemindicator.ItemCountIndicator;
@@ -23,7 +22,7 @@ import org.joml.Matrix4fStack;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,7 +31,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
@@ -244,8 +242,8 @@ public class GuiItemDurability {
         }
         int xposArmor, xposTools, xposTrinkets, ypos;
 
-        Corner corner =   Config.hudPosition ;
-        switch (corner) {
+        HudPosition hudPosition =   Config.hudPosition ;
+        switch (hudPosition) {
             case TOP_LEFT -> {
                 xposArmor = 5;
                 xposTools = 5 + armorSize.width;
@@ -297,17 +295,17 @@ public class GuiItemDurability {
             }
             this.renderItems(context, mainWindow.getGuiScaledWidth() / 2 + rightOffset, mainWindow.getGuiScaledHeight() - iconHeight * 2 - 2, true, RenderPos.right, armorSize.width, leggings);
             this.renderItems(context, mainWindow.getGuiScaledWidth() / 2 + rightOffset, mainWindow.getGuiScaledHeight() - iconHeight - 2, true, RenderPos.right, armorSize.width, boots);
-            if (corner.isRight()) {
+            if (hudPosition.isRight()) {
                 xposTools += armorSize.width;
             } else {
                 xposTools -= armorSize.width;
             }
         } else {
-            this.renderItems(context, xposArmor, ypos, true, corner.isLeft() ? RenderPos.left : RenderPos.right, armorSize.width, helmet, chestplate, colytra, leggings, boots);
+            this.renderItems(context, xposArmor, ypos, true, hudPosition.isLeft() ? RenderPos.left : RenderPos.right, armorSize.width, helmet, chestplate, colytra, leggings, boots);
         }
-        this.renderItems(context, xposTools, ypos, true, corner.isRight() ? RenderPos.right : RenderPos.left, toolsSize.width, invSlots, mainHand, offHand, arrows);
+        this.renderItems(context, xposTools, ypos, true, hudPosition.isRight() ? RenderPos.right : RenderPos.left, toolsSize.width, invSlots, mainHand, offHand, arrows);
       if (Config.showAllTrinkets){
-          this.renderItems(context, xposTrinkets, ypos, true, corner.isRight() ? RenderPos.right : RenderPos.left, trinketsSize.width, trinkets);
+          this.renderItems(context, xposTrinkets, ypos, true, hudPosition.isRight() ? RenderPos.right : RenderPos.left, trinketsSize.width, trinkets);
       }
     }
 
@@ -404,7 +402,12 @@ public class GuiItemDurability {
      return    CuriosApi.getPlayerSlots(player).size();
 
     }
-    // 获取所有槽位的物品列表
+
+    /**
+     * get all equipped curios
+     * @param player
+     * @return
+     */
     public static List<ItemStack> getAllCuriosItems(Player player) {
         List<ItemStack> items = new ArrayList<>();
         CuriosApi.getCuriosInventory(player).ifPresent(handler -> {
@@ -419,17 +422,5 @@ public class GuiItemDurability {
         });
         return items;
     }
-    public List<ItemStack> getTrinkets(Player player) {
 
-        var playerItems=player.getInventory().items;
-        List<ItemStack> curiosItems=new ArrayList<>();
-        var curiosSlot=CuriosApi.getPlayerSlots(player);
-        for(var item : playerItems) {
-
-            var itemCurios=   CuriosApi.getCurio(item);
-            itemCurios.ifPresent(i->curiosItems.add(i.getStack()));
-        }
-
-        return curiosItems;
-    }
 }

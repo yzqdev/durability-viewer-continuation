@@ -1,8 +1,6 @@
 package de.guntram.mcmod.durabilityviewer.datagen;
 
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
-import de.guntram.mcmod.durabilityviewer.cloth.Corner;
-import de.guntram.mcmod.durabilityviewer.cloth.WarnMode;
 
 /**
  * @author yzqde

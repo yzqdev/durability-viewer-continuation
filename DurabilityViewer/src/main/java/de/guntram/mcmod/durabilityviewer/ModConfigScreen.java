@@ -27,7 +27,6 @@ public class ModConfigScreen extends  ConfigurationScreen.ConfigurationSectionSc
         return new Element(getTranslationComponent(key), getTooltipComponent(key, null),
                 new OptionInstance<>(getTranslationKey(key), getTooltip(key, null), (caption, displayvalue) ->   Component.translatable(DurabilityViewer.MODID+".configuration." + key + "." + displayvalue.name().toLowerCase()),
                         new Custom<>(list), source.get(), newValue -> {
-                    // regarding change detection: new value always is different (cycle button)
                     undoManager.add(v -> {
                         target.accept(v);
                         onChanged(key);

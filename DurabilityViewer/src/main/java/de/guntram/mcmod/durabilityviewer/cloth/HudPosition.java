@@ -1,6 +1,6 @@
 package de.guntram.mcmod.durabilityviewer.cloth;
 
-public enum Corner {
+public enum HudPosition {
     BOTTOM_RIGHT ,
     BOTTOM_LEFT,
     TOP_RIGHT,
