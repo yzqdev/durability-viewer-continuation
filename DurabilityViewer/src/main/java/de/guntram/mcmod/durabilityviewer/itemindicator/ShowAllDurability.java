@@ -11,12 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.client.IItemDecorator;
+import org.joml.Matrix3x2fStack;
 
 public class ShowAllDurability implements IItemDecorator {
 
     public boolean render(GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xPosition, int yPosition) {
         if (!itemStack.isEmpty() && itemStack.isDamaged()&& Config.showInventoryItemDurability) {
-            PoseStack poseStack = guiGraphics.pose();
+            Matrix3x2fStack poseStack = guiGraphics.pose();
             var access = Minecraft.getInstance().level.registryAccess();
             var enchantmentRegistry= access.lookupOrThrow(Registries.ENCHANTMENT);
             var unbreakEnchant=  enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING);
@@ -24,21 +25,19 @@ public class ShowAllDurability implements IItemDecorator {
             int unbreaking = EnchantmentHelper.getTagEnchantmentLevel(unbreakEnchant, itemStack);
             int maxDamage = itemStack.getMaxDamage();
             int damage = itemStack.getDamageValue();
-
-            // Create string, position, and color
             String string = String.valueOf(((maxDamage - damage) * (unbreaking + 1)));
             int stringWidth = font.width(string);
             int x = ((xPosition + 8) * 2 + 1 + stringWidth / 2 - stringWidth);
             int y = (yPosition * 2) + 18;
-            int color = itemStack.getItem().getBarColor(itemStack);
+            int color = itemStack.getItem().getBarColor(itemStack) | 0xFF000000;
 
-            poseStack.pushPose();
-            poseStack.scale(0.5F, 0.5F, 0.5F);
-            poseStack.translate(0.0F, 0.0F, 301.0F);
-            guiGraphics.drawString(font, string, x, y, color);
+            poseStack.pushMatrix();
+            poseStack.scale(0.5F, 0.5F);
 
+            // Draw string
+            guiGraphics.drawString(font, string, x, y, color, true);
 
-            poseStack.popPose();
+            poseStack.popMatrix();
         }
 
         return true;

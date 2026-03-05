@@ -18,7 +18,7 @@ public class ModEvent {
     public static void registerBindings(RegisterKeyMappingsEvent event) {
         event.register(EXAMPLE_MAPPING.get());
     }
-    @OnlyIn(Dist.CLIENT)
+
     @SubscribeEvent
     public static void onRegisterItemDecorations(final RegisterItemDecorationsEvent event) {
 
