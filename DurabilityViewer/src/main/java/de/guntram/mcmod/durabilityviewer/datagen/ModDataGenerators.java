@@ -11,8 +11,7 @@ public class ModDataGenerators {
     public static void reg(GatherDataEvent event){
         var generator=event.getGenerator();
         var packOutput=generator.getPackOutput();
-        var lookupProvider=event.getLookupProvider();
-        var existingFileHelper=event.getExistingFileHelper();
+
 
         generator.addProvider(event.includeServer(),new EnLangProvider(packOutput, DurabilityViewer.MODID,"en_us"));
         generator.addProvider(event.includeServer(),new ZhLangProvider(packOutput,DurabilityViewer.MODID,"zh_cn"));

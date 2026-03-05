@@ -18,7 +18,7 @@ public class Config {
 
     private static final ModConfigSpec.BooleanValue ARMOR_AROUND_HOTBAR = BUILDER
             .comment("Armor Around Hotbar")
-            .define("armorAroundHotbar", false);
+            .define("armorAroundHotbar", true);
 
     private static final ModConfigSpec.BooleanValue EFFECT_DURATION = BUILDER
             .comment("show effect duration")

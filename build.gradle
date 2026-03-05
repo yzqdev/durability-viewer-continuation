@@ -10,5 +10,5 @@ allprojects {
             downloadJavadoc = true
         }
     }
-    getLayout().getBuildDirectory().set(new File(rootDir, "build/${path.replace(':', '/')}"))
+//    getLayout().getBuildDirectory().set(new File(rootDir, "build/${path.replace(':', '/')}"))
 }
