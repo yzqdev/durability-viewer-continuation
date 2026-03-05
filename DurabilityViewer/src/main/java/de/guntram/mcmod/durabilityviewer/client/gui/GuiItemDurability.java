@@ -157,7 +157,7 @@ public class GuiItemDurability {
         ItemIndicator chestplate = new ItemDamageIndicator(chestItem);
         ItemIndicator helmet = new ItemDamageIndicator(player.getItemBySlot(EquipmentSlot.HEAD));
         ItemIndicator arrows = null;
-        ItemIndicator invSlots = ( Config.showFreeInventorySlots ? new InventorySlotsIndicator(minecraft.player.getInventory()) : null);
+        ItemIndicator invSlots = (Config.showFreeInventorySlots ? new InventorySlotsIndicator(minecraft.player.getInventory()) : null);
 
         if (mainHandWarner.checkBreaks(player.getItemBySlot(EquipmentSlot.MAINHAND)))
             needToWarn = player.getItemBySlot(EquipmentSlot.MAINHAND);
@@ -187,7 +187,7 @@ public class GuiItemDurability {
             }
             LOGGER.debug("know about " + trinkets.length + " curios, invSize is " + equipped.size() + ", have " + trinketWarners.length + " warners");
             for (int i = 0; i < trinkets.length; i++) {
-                trinkets[i] = new ItemDamageIndicator(equipped.get(i),  Config.showAllTrinkets );
+                trinkets[i] = new ItemDamageIndicator(equipped.get(i), Config.showAllTrinkets);
                 if (needToWarn == null && trinketWarners[i].checkBreaks(equipped.get(i))) {
                     needToWarn = equipped.get(i);
                 }
@@ -197,7 +197,7 @@ public class GuiItemDurability {
             trinkets = new ItemIndicator[0];
         }
 
-        WarnMode warnMode =  Config.warningMode ;
+        WarnMode warnMode = Config.warningMode;
         if (needToWarn != null) {
             if (warnMode == WarnMode.SOUND || warnMode == WarnMode.BOTH) {
                 ItemBreakingWarner.playWarningSound();
@@ -225,7 +225,7 @@ public class GuiItemDurability {
 
         Window mainWindow = Minecraft.getInstance().getWindow();
         RenderSize armorSize, toolsSize, trinketsSize;
-        if ( Config.armorAroundHotbar ) {
+        if (Config.armorAroundHotbar) {
             armorSize = new RenderSize(0, 0);
         } else {
             armorSize = this.renderItems(context, 0, 0, false, RenderPos.left, 0, boots, leggings, colytra, chestplate, helmet);
@@ -237,12 +237,12 @@ public class GuiItemDurability {
         if (trinketsSize.height > totalHeight) {
             totalHeight = trinketsSize.height;
         }
-        if (trinketsSize.width == 0 && trinkets.length > 0 &&  Config.showAllTrinkets) {
+        if (trinketsSize.width == 0 && trinkets.length > 0 && Config.showAllTrinkets) {
             trinketsSize.width = iconWidth + spacing * 2;
         }
         int xposArmor, xposTools, xposTrinkets, ypos;
 
-        HudPosition hudPosition =   Config.hudPosition ;
+        HudPosition hudPosition = Config.hudPosition;
         switch (hudPosition) {
             case TOP_LEFT -> {
                 xposArmor = 5;
@@ -275,7 +275,7 @@ public class GuiItemDurability {
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        if ( Config.armorAroundHotbar) {
+        if (Config.armorAroundHotbar) {
             int leftOffset = -120;
             int rightOffset = 100;
             if (!player.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty()) {
@@ -304,9 +304,9 @@ public class GuiItemDurability {
             this.renderItems(context, xposArmor, ypos, true, hudPosition.isLeft() ? RenderPos.left : RenderPos.right, armorSize.width, helmet, chestplate, colytra, leggings, boots);
         }
         this.renderItems(context, xposTools, ypos, true, hudPosition.isRight() ? RenderPos.right : RenderPos.left, toolsSize.width, invSlots, mainHand, offHand, arrows);
-      if (Config.showAllTrinkets){
-          this.renderItems(context, xposTrinkets, ypos, true, hudPosition.isRight() ? RenderPos.right : RenderPos.left, trinketsSize.width, trinkets);
-      }
+        if (Config.showAllTrinkets) {
+            this.renderItems(context, xposTrinkets, ypos, true, hudPosition.isRight() ? RenderPos.right : RenderPos.left, trinketsSize.width, trinkets);
+        }
     }
 
     private ItemIndicator damageOrEnergy(Player player, EquipmentSlot slot) {
@@ -333,18 +333,18 @@ public class GuiItemDurability {
         Matrix4fStack stack = RenderSystem.getModelViewStack();
         stack.pushMatrix();
         stack.scale(scale, scale, scale);
-        RenderSystem.applyModelViewMatrix();
+//        RenderSystem.applyModelViewMatrix();
 
         context.renderItem(itemStack, (int) ((xWarn) / scale - 8), (int) ((yWarn) / scale - 8));
 
         stack.popMatrix();
-        RenderSystem.applyModelViewMatrix();
+//        RenderSystem.applyModelViewMatrix();
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void afterRenderStatusEffects(GuiGraphics context, float partialTicks) {
-        if ( Config.effectDuration) {
+        if (Config.effectDuration) {
             // a lot of this is copied from net/minecraft/client/gui/GuiIngame.java
             Window mainWindow = Minecraft.getInstance().getWindow();
             Collection<MobEffectInstance> collection = minecraft.player.getActiveEffects();
@@ -399,12 +399,13 @@ public class GuiItemDurability {
 
     public int getTrinketSlotCount(Player player) {
 
-     return    CuriosApi.getPlayerSlots(player).size();
+        return CuriosApi.getPlayerSlots(player).size();
 
     }
 
     /**
      * get all equipped curios
+     *
      * @param player
      * @return
      */

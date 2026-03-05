@@ -18,7 +18,8 @@ public class ShowAllDurability implements IItemDecorator {
         if (!itemStack.isEmpty() && itemStack.isDamaged()&& Config.showInventoryItemDurability) {
             PoseStack poseStack = guiGraphics.pose();
             var access = Minecraft.getInstance().level.registryAccess();
-            var unbreakEnchant = access.registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.UNBREAKING);
+            var enchantmentRegistry= access.lookupOrThrow(Registries.ENCHANTMENT);
+            var unbreakEnchant=  enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING);
             // ItemStack information
             int unbreaking = EnchantmentHelper.getTagEnchantmentLevel(unbreakEnchant, itemStack);
             int maxDamage = itemStack.getMaxDamage();
