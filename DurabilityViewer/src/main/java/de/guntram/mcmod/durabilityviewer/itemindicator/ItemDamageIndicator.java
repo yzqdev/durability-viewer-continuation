@@ -4,7 +4,11 @@ package de.guntram.mcmod.durabilityviewer.itemindicator;
 
 import de.guntram.mcmod.durabilityviewer.Config;
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ItemDamageIndicator implements ItemIndicator {
 
@@ -25,22 +29,39 @@ public class ItemDamageIndicator implements ItemIndicator {
         if (!(stack.isDamageableItem())) {
             return "";
         }
-        return calculateDisplayValue(stack.getMaxDamage(), stack.getDamageValue());
+        return calculateDisplayValue(stack );
     }
+    public static String calculateDisplayValue(ItemStack stack) {
+        int max = stack.getMaxDamage();
+        int dam = stack.getDamageValue();
 
-    public static String calculateDisplayValue(int max, int dam) {
-        int cur = max - dam;
+        // 1. 获取耐久等级 (Unbreaking)
+        int unbreaking = 0;
+        if (Minecraft.getInstance().level != null) {
+            var access = Minecraft.getInstance().level.registryAccess();
+            var unbreakEnchant = access.registryOrThrow(Registries.ENCHANTMENT)
+                    .getHolderOrThrow(Enchantments.UNBREAKING);
+            unbreaking = EnchantmentHelper.getItemEnchantmentLevel(unbreakEnchant, stack);
+        }
 
-        int shown;
-        if (cur > max * Config.percentToShowDamageRatherThanDurability / 100) {
-            shown = -dam;
-        } else {
-            shown = cur;
+
+        int factor = Config.showExpectedHits ? (unbreaking + 1) : 1;
+
+        // 剩余原生耐久点数
+        int remainingPoints = max - dam;
+
+
+        boolean showLossValue = remainingPoints > (max * Config.percentToShowDamageRatherThanDurability / 100);
+
+
+        if (Config.showPercentRatherThanDurability) {
+            double percent = showLossValue ? (-(double)dam * 100.0 / max) : ((double)remainingPoints * 100.0 / max);
+            return String.format("%.1f%%", percent);
         }
-        if ( Config.showPercentRatherThanDurability) {
-            return String.format("%.1f%%", shown * 100.0 / max);
-        }
-        return String.valueOf(shown);
+
+
+        long shownValue = showLossValue ? (-(long)dam * factor) : ((long)remainingPoints * factor);
+        return String.valueOf(shownValue);
     }
 
     @Override

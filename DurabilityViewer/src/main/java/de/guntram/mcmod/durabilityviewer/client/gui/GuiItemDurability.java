@@ -185,14 +185,20 @@ public class GuiItemDurability {
                     trinketWarners[i] = new ItemBreakingWarner();
                 }
             }
-            LOGGER.debug("know about " + trinkets.length + " curios, invSize is " + equipped.size() + ", have " + trinketWarners.length + " warners");
-            for (int i = 0; i < trinkets.length; i++) {
+            if(Config.debug){
+                LOGGER.debug("know about " + trinkets.length + " curios, invSize is " + equipped.size() + ", have " + trinketWarners.length + " warners");
+
+            }
+       for (int i = 0; i < trinkets.length; i++) {
                 trinkets[i] = new ItemDamageIndicator(equipped.get(i),  Config.showAllTrinkets );
                 if (needToWarn == null && trinketWarners[i].checkBreaks(equipped.get(i))) {
                     needToWarn = equipped.get(i);
                 }
-                LOGGER.debug("curios position " + i + " has item " + equipped.get(i).getItem().toString());
-            }
+           if(Config.debug) {
+               LOGGER.debug("curios position " + i + " has item " + equipped.get(i)
+                       .getItem()
+                       .toString());
+           }}
         } else {
             trinkets = new ItemIndicator[0];
         }

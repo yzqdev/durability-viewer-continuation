@@ -11,7 +11,10 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    // 配置项定义
+    private static final ModConfigSpec.BooleanValue SHOW_EXPECTED_HITS = BUILDER
+            .comment("If true, durability will be multiplied by the Unbreaking level (Expected Hits). \n" +
+                    "If false, shows the raw durability values.")
+            .define("showExpectedHits", true);
     private static final ModConfigSpec.BooleanValue SHOW_INVENTORY_ITEM_DURABILITY = BUILDER
             .comment("show inventory item durability")
             .define("showInventoryItemDurability", true);
@@ -51,10 +54,12 @@ public class Config {
             .comment("show free inventory slots")
             .define("showFreeInventorySlots", true);
 
+
     private static final ModConfigSpec.EnumValue<WarnMode> WARNING_MODE = BUILDER
             .comment("warning mode")
             .defineEnum("warningMode", WarnMode.BOTH);
-    private static final ModConfigSpec.BooleanValue SHOW_ALL_TRINKETS=BUILDER.comment("show  trinkets").define("showAllTrinkets", true);
+    private static final ModConfigSpec.BooleanValue SHOW_ALL_TRINKETS = BUILDER.comment("show  trinkets")
+            .define("showAllTrinkets", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -65,15 +70,18 @@ public class Config {
     public static HudPosition hudPosition;
     public static int hideDamageOverPercent;
     public static int soundBelowDurability;
-    public static int soundBelowPercent ;
+    public static int soundBelowPercent;
     public static boolean showPercentRatherThanDurability;
     public static int percentToShowDamageRatherThanDurability;
     public static boolean showFreeInventorySlots;
     public static WarnMode warningMode;
-public static boolean showAllTrinkets;
+    public static boolean showAllTrinkets;
+    public static boolean debug = false;
+    public static boolean showExpectedHits;
+
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-
+        showExpectedHits = SHOW_EXPECTED_HITS.get();
         showInventoryItemDurability = SHOW_INVENTORY_ITEM_DURABILITY.get();
         armorAroundHotbar = ARMOR_AROUND_HOTBAR.get();
         effectDuration = EFFECT_DURATION.get();
@@ -85,7 +93,7 @@ public static boolean showAllTrinkets;
         percentToShowDamageRatherThanDurability = PERCENT_TO_SHOW_DAMAGE_RATHER_THAN_DURABILITY.get();
         showFreeInventorySlots = SHOW_FREE_INVENTORY_SLOTS.get();
         warningMode = WARNING_MODE.get();
-        showAllTrinkets= SHOW_ALL_TRINKETS.get();
+        showAllTrinkets = SHOW_ALL_TRINKETS.get();
     }
 
 
