@@ -18,14 +18,29 @@ public class ShowAllDurability implements IItemDecorator {
     public boolean render(GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xPosition, int yPosition) {
         if (!itemStack.isEmpty() && itemStack.isDamaged()&& Config.showInventoryItemDurability) {
             Matrix3x2fStack poseStack = guiGraphics.pose();
-            var access = Minecraft.getInstance().level.registryAccess();
-            var enchantmentRegistry= access.lookupOrThrow(Registries.ENCHANTMENT);
-            var unbreakEnchant=  enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING);
-            // ItemStack information
-            int unbreaking = EnchantmentHelper.getTagEnchantmentLevel(unbreakEnchant, itemStack);
+
             int maxDamage = itemStack.getMaxDamage();
             int damage = itemStack.getDamageValue();
-            String string = String.valueOf(((maxDamage - damage) * (unbreaking + 1)));
+
+            int remaining = maxDamage - damage;
+            int factor = 1;
+            if (Config.showExpectedHits && Minecraft.getInstance().level != null) {
+                try {
+                    var access = Minecraft.getInstance().level.registryAccess();
+                    var enchantmentRegistry= access.lookupOrThrow(Registries.ENCHANTMENT);
+                    var unbreakEnchant=  enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING);
+                    // ItemStack information
+                    int unbreaking = EnchantmentHelper.getTagEnchantmentLevel(unbreakEnchant, itemStack);
+
+
+                    int unbreakingLevel = EnchantmentHelper.getTagEnchantmentLevel(unbreakEnchant, itemStack);
+                    factor = unbreakingLevel + 1;
+                } catch (Exception e) {
+                    factor = 1;
+                }
+            }
+            long finalValue = (long) remaining * factor;
+            String string = String.valueOf(finalValue);
             int stringWidth = font.width(string);
             int x = ((xPosition + 8) * 2 + 1 + stringWidth / 2 - stringWidth);
             int y = (yPosition * 2) + 18;

@@ -11,7 +11,10 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    // 配置项定义
+    private static final ModConfigSpec.BooleanValue SHOW_EXPECTED_HITS = BUILDER
+            .comment("If true, durability will be multiplied by the Unbreaking level (Expected Hits). \n" +
+                    "If false, shows the raw durability values.")
+            .define("showExpectedHits", true);
     private static final ModConfigSpec.BooleanValue SHOW_INVENTORY_ITEM_DURABILITY = BUILDER
             .comment("show inventory item durability")
             .define("showInventoryItemDurability", true);
@@ -71,9 +74,11 @@ public class Config {
     public static boolean showFreeInventorySlots;
     public static WarnMode warningMode;
 public static boolean showAllTrinkets;
+    public static boolean debug = false;
+    public static boolean showExpectedHits;
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-
+        showExpectedHits = SHOW_EXPECTED_HITS.get();
         showInventoryItemDurability = SHOW_INVENTORY_ITEM_DURABILITY.get();
         armorAroundHotbar = ARMOR_AROUND_HOTBAR.get();
         effectDuration = EFFECT_DURATION.get();
