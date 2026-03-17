@@ -1,12 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "package": "de.guntram.mcmod.durabilityviewer.mixin",
 
   "refmap": "durabilityviewer.refmap.json",
   "client": [
-    "PotionEffectsMixin"
+    "GuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

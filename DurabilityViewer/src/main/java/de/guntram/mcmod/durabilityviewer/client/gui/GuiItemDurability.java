@@ -15,6 +15,7 @@ import de.guntram.mcmod.durabilityviewer.itemindicator.ItemIndicator;
 import de.guntram.mcmod.durabilityviewer.sound.ColytraBreakingWarner;
 import de.guntram.mcmod.durabilityviewer.sound.ItemBreakingWarner;
 
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4fStack;
@@ -25,8 +26,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -44,7 +44,7 @@ public class GuiItemDurability {
     private final Minecraft minecraft;
     private static boolean visible;
     private final Font fontRenderer;
-    private final ItemRenderer itemRenderer;
+
 
     private long lastWarningTime;
     private ItemStack lastWarningItem;
@@ -67,7 +67,7 @@ public class GuiItemDurability {
     public GuiItemDurability() {
         minecraft = Minecraft.getInstance();
         fontRenderer = minecraft.font;
-        itemRenderer = minecraft.getItemRenderer();
+
         visible = true;
 
         mainHandWarner = new ItemBreakingWarner();
@@ -94,7 +94,8 @@ public class GuiItemDurability {
 
     private int getInventoryArrowCount() {
         int arrows = 0;
-        for (final ItemStack stack : minecraft.player.getInventory().items) {
+        for (final ItemStack stack : minecraft.player.getInventory()
+                .getNonEquipmentItems()) {
             if (isArrow(stack)) {
                 arrows += stack.getCount();
             }
@@ -137,7 +138,7 @@ public class GuiItemDurability {
         left, over, right;
     }
 
-    public void onRenderGameOverlayPost(GuiGraphics context, float partialTicks) {
+    public void onRenderGameOverlayPost(GuiGraphicsExtractor context, float partialTicks) {
 
         Player player = minecraft.player;
         ItemStack needToWarn = null;
@@ -185,14 +186,20 @@ public class GuiItemDurability {
                     trinketWarners[i] = new ItemBreakingWarner();
                 }
             }
-            LOGGER.debug("know about " + trinkets.length + " curios, invSize is " + equipped.size() + ", have " + trinketWarners.length + " warners");
-            for (int i = 0; i < trinkets.length; i++) {
+            if(Config.debug){
+                LOGGER.debug("know about " + trinkets.length + " curios, invSize is " + equipped.size() + ", have " + trinketWarners.length + " warners");
+
+            }
+       for (int i = 0; i < trinkets.length; i++) {
                 trinkets[i] = new ItemDamageIndicator(equipped.get(i),  Config.showAllTrinkets );
                 if (needToWarn == null && trinketWarners[i].checkBreaks(equipped.get(i))) {
                     needToWarn = equipped.get(i);
                 }
-                LOGGER.debug("curios position " + i + " has item " + equipped.get(i).getItem().toString());
-            }
+           if(Config.debug) {
+               LOGGER.debug("curios position " + i + " has item " + equipped.get(i)
+                       .getItem()
+                       .toString());
+           }}
         } else {
             trinkets = new ItemIndicator[0];
         }
@@ -273,7 +280,7 @@ public class GuiItemDurability {
             }
         }
 
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+//        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         if ( Config.armorAroundHotbar) {
             int leftOffset = -120;
@@ -321,7 +328,7 @@ public class GuiItemDurability {
         return new ItemDamageIndicator(stack);
     }
 
-    private void renderItemBreakingOverlay(GuiGraphics context, ItemStack itemStack, long timeDelta) {
+    private void renderItemBreakingOverlay(GuiGraphicsExtractor context, ItemStack itemStack, long timeDelta) {
         Window mainWindow = Minecraft.getInstance().getWindow();
         float alpha = 1.0f - ((float) timeDelta / 1000.0f);
         float xWarn = mainWindow.getGuiScaledWidth() / 2f;
@@ -333,17 +340,17 @@ public class GuiItemDurability {
         Matrix4fStack stack = RenderSystem.getModelViewStack();
         stack.pushMatrix();
         stack.scale(scale, scale, scale);
-        RenderSystem.applyModelViewMatrix();
+//        RenderSystem.applyModelViewMatrix();
 
-        context.renderItem(itemStack, (int) ((xWarn) / scale - 8), (int) ((yWarn) / scale - 8));
+        context.item(itemStack, (int) ((xWarn) / scale - 8), (int) ((yWarn) / scale - 8));
 
         stack.popMatrix();
-        RenderSystem.applyModelViewMatrix();
+//        RenderSystem.applyModelViewMatrix();
 
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+//        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    public void afterRenderStatusEffects(GuiGraphics context, float partialTicks) {
+    public void afterRenderStatusEffects(GuiGraphicsExtractor context, float partialTicks) {
         if ( Config.effectDuration) {
             // a lot of this is copied from net/minecraft/client/gui/GuiIngame.java
             Window mainWindow = Minecraft.getInstance().getWindow();
@@ -369,13 +376,13 @@ public class GuiItemDurability {
                         show = (duration / 1200) + "m";
                     else
                         show = (duration / 20) + "s";
-                    context.drawString(fontRenderer, show, xpos + 2, ypos, ItemIndicator.color_yellow, true);
+                    context.text(fontRenderer, show, xpos + 2, ypos, ItemIndicator.color_yellow, true);
                 }
             }
         }
     }
 
-    private RenderSize renderItems(GuiGraphics context, int xpos, int ypos, boolean reallyDraw, RenderPos numberPos, int maxWidth, ItemIndicator... items) {
+    private RenderSize renderItems(GuiGraphicsExtractor context, int xpos, int ypos, boolean reallyDraw, RenderPos numberPos, int maxWidth, ItemIndicator... items) {
         RenderSize result = new RenderSize(0, 0);
 
         for (ItemIndicator item : items) {
@@ -386,8 +393,8 @@ public class GuiItemDurability {
                     result.width = width;
                 if (reallyDraw) {
                     int color = item.getDisplayColor();
-                    context.renderItem(item.getItemStack(), numberPos == RenderPos.left ? xpos + maxWidth - iconWidth - spacing : xpos, ypos + result.height);
-                    context.drawString(fontRenderer, displayString, numberPos != RenderPos.right ? xpos : xpos + iconWidth + spacing, (int) (ypos + result.height + fontRenderer.lineHeight / 2f + (numberPos == RenderPos.over ? 10 : 0)), color, true);
+                    context.item(item.getItemStack(), numberPos == RenderPos.left ? xpos + maxWidth - iconWidth - spacing : xpos, ypos + result.height);
+                    context.text(fontRenderer, displayString, numberPos != RenderPos.right ? xpos : xpos + iconWidth + spacing, (int) (ypos + result.height + fontRenderer.lineHeight / 2f + (numberPos == RenderPos.over ? 10 : 0)), color, true);
                 }
                 result.height += 16;
             }

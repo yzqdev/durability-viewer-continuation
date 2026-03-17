@@ -9,7 +9,7 @@ package de.guntram.mcmod.durabilityviewer.sound;
 import de.guntram.mcmod.durabilityviewer.Config;
 import de.guntram.mcmod.durabilityviewer.DurabilityViewer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.ItemStack;
 
@@ -25,10 +25,10 @@ public class ItemBreakingWarner {
     public ItemBreakingWarner() {
         lastDurability = 1000;
         lastStack = null;
-        ResourceLocation location;
+        Identifier location;
 
         if (sound == null) {
-            location = ResourceLocation.fromNamespaceAndPath(DurabilityViewer.MODID, "tool_breaking");
+            location = Identifier.fromNamespaceAndPath(DurabilityViewer.MODID, "tool_breaking");
             sound = SoundEvent.createVariableRangeEvent(location);
         }
     }

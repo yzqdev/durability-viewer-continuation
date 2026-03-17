@@ -8,12 +8,12 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 @EventBusSubscriber(modid = DurabilityViewer.MODID )
 public class ModDataGenerators {
     @SubscribeEvent
-    public static void reg(GatherDataEvent event){
+    public static void reg(GatherDataEvent.Client event){
         var generator=event.getGenerator();
         var packOutput=generator.getPackOutput();
 
 
-        generator.addProvider(event.includeServer(),new EnLangProvider(packOutput, DurabilityViewer.MODID,"en_us"));
-        generator.addProvider(event.includeServer(),new ZhLangProvider(packOutput,DurabilityViewer.MODID,"zh_cn"));
+        event.createProvider (p->new EnLangProvider(packOutput, DurabilityViewer.MODID,"en_us"));
+        event.createProvider(p->new ZhLangProvider(packOutput,DurabilityViewer.MODID,"zh_cn"));
     }
 }
