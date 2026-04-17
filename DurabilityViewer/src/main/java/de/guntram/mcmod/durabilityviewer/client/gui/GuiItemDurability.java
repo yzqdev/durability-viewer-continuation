@@ -219,8 +219,9 @@ public class GuiItemDurability {
         }
 
         // Moved this check to down here, in order to play the 
-        // warning sound / do the visible 
-        if (!visible || minecraft.getDebugOverlay().showDebugScreen()) {
+        // warning sound / do the visible
+        var debugOverlay=minecraft.getDebugOverlay().showDebugScreen()&&minecraft.debugEntries.getCurrentlyEnabled().size()>6;
+        if (!visible ||debugOverlay ) {
             return;
         }
 
